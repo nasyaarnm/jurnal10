@@ -34,23 +34,23 @@ app.MapGet("/", () =>
     return Results.Redirect("/swagger");
 });
 
-app.MapGet("/mahasiswa", async (DataBase db) =>
+app.MapGet("api/mahasiswa", async (DataBase db) =>
 {
     var mhs = new Mahasiswa[]
     {
-        new Mahasiswa { Id = 0, Nama = "Nasya Kirana Marendra", Nim = "1302223148"},
-        new Mahasiswa { Id = 1, Nama = "Zabrina Virgie", Nim = "1302223055"},
-        new Mahasiswa { Id = 2, Nama = "Dara Sheiba M.C", Nim = "1302223075"},
-        new Mahasiswa { Id = 3, Nama = "M Tsaqif Zayyan", Nim = "1302220141"},
-        new Mahasiswa { Id = 4, Nama = "M Arifin Ilham", Nim = "1302223061"},
-        new Mahasiswa { Id = 5, Nama = "Rafie Aydin Ihsan", Nim = "1302220065"},
+        new Mahasiswa { Id = 0, Nama = "Nasya Kirana Marendra", Nim = "1302223148", Course = new List<string>(){ "KPL", "PBO", "Basdat" }, Year = 2024},
+        new Mahasiswa { Id = 1, Nama = "Zabrina Virgie", Nim = "1302223055", Course = new List<string>(){ "KPL", "PBO", "Basdat" }, Year = 2024},
+        new Mahasiswa { Id = 2, Nama = "Dara Sheiba M.C", Nim = "1302223075", Course = new List<string>(){ "KPL", "PBO", "Basdat" }, Year = 2024},
+        new Mahasiswa { Id = 3, Nama = "M Tsaqif Zayyan", Nim = "1302220141", Course = new List<string>(){ "KPL", "PBO", "Basdat" }, Year = 2024},
+        new Mahasiswa { Id = 4, Nama = "M Arifin Ilham", Nim = "1302223061", Course = new List<string>(){ "KPL", "PBO", "Basdat" }, Year = 2024},
+        new Mahasiswa { Id = 5, Nama = "Rafie Aydin Ihsan", Nim = "1302220065", Course = new List<string>(){ "KPL", "PBO", "Basdat" }, Year = 2024},
     };
 
     await db.SaveChangesAsync();
     return Results.Ok(await db.mhs.ToListAsync());
 });
 
-app.MapGet("/mahasiswa/{id}", async (DataBase db, int id) =>
+app.MapGet("api/mahasiswa/{id}", async (DataBase db, int id) =>
 {
     var mhs = await db.mhs.FindAsync(id);
     if (mhs == null)
@@ -60,7 +60,7 @@ app.MapGet("/mahasiswa/{id}", async (DataBase db, int id) =>
     return Results.Ok(mhs);
 });
 
-app.MapPost("/mahasiswa", async (DataBase db, Mahasiswa mhs) =>
+app.MapPost("api/mahasiswa", async (DataBase db, Mahasiswa mhs) =>
 {
     Console.WriteLine(mhs);
     db.mhs.Add(mhs);
